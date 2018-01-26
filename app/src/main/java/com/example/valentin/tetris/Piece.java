@@ -108,7 +108,6 @@ public class Piece implements Move, movePossible {
     public void rotate(int[][] baseGrid) {
 
         int[][] newMatrix = new int[width][height];
-        int[][] newNewMatrix = new int[height][width];
 
         if (rotatePossible(baseGrid, newMatrix)) {
             for (int i = pos_i; i < height + pos_i; i++) {
@@ -117,66 +116,14 @@ public class Piece implements Move, movePossible {
                 }
             }
 
-            switch (state % 4){
-                case 0:
-                    for (int i = 0; i < height; i++) {
-                        for (int j = 0; j < width; j++) {
-                            newMatrix[j][i] = matrix[i][j];
-                        }
+            for (int i = 0; i < height; i++) {
+                for (int j = 0; j < width; j++) {
+                    newMatrix[j][i] = matrix[i][j];
+                }
 
-                    }
-                    break;
-                case 1:
-                    for (int i = 0; i < height; i++) {
-                        for (int j = 0; j < width; j++) {
-                            newMatrix[j][i] = matrix[i][j];
-                        }
-
-                    }
-                    break;
-                case 2:
-                    for (int i = 0; i < height; i++) {
-                        for (int j = 0; j < width; j++) {
-                            newMatrix[j][i] = matrix[i][j];
-                        }
-
-                    }
-
-                    for (int i = 0; i < width; i++) {
-                        for (int j = 0; j < height; j++) {
-                            newNewMatrix[i][j] = newMatrix[i][j];
-                        }
-
-                    }
-
-                    for (int i = 0; i < width; i++) {
-                        for (int j = 0; j < height; j++) {
-                            newMatrix[i][j] = newNewMatrix[height - i][j];
-                        }
-
-                    }
-                    break;
-                case 3:
-                    for (int i = 0; i < height; i++) {
-                        for (int j = 0; j < width; j++) {
-                            newMatrix[j][i] = matrix[i][j];
-                        }
-
-                    }
-
-                    for (int i = 0; i < height; i++) {
-                        for (int j = 0; j < width; j++) {
-                            newMatrix[i][j] = newMatrix[height - i][j];
-                        }
-
-                    }
-                    break;
-                default:
-                        break;
             }
-
             matrix = newMatrix;
-            state++;
+
             int theHeight = height;
             height = width;
             width = theHeight;
