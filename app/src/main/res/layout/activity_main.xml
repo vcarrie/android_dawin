@@ -4,23 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
     tools:context="com.example.valentin.tetris.MainActivity"
-    tools:layout_editor_absoluteY="81dp">
+    tools:layout_editor_absoluteY="25dp">
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <GridView
             android:id="@+id/BaseGrid"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="412dp"
             android:layout_marginBottom="24dp"
             android:layout_marginEnd="50dp"
             android:layout_marginStart="50dp"
@@ -34,9 +33,27 @@
 
         </GridView>
 
+
+        <TextView
+            android:id="@+id/Score"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/background_dark" />
+
+        <Chronometer
+            android:id="@+id/Chrono"
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:gravity="center"
+            android:textColor="@android:color/background_dark"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:visibility="visible">
 
@@ -45,37 +62,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:onClick="left"
                 android:text="←"
-                android:visibility="visible"
-                android:onClick="left"/>
+                android:visibility="visible" />
 
             <Button
                 android:id="@+id/rotateButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:onClick="rotate"
                 android:text="↻"
-                android:visibility="visible"
-                android:onClick="rotate"/>
+                android:visibility="visible" />
 
             <Button
                 android:id="@+id/rightButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:onClick="right"
                 android:text="→"
-                android:visibility="visible"
-                android:onClick="right"/>
+                android:visibility="visible" />
 
             <Button
                 android:id="@+id/downButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:onClick="down"
                 android:text="↓"
-                android:visibility="visible"
-                android:onClick="down"/>
+                android:visibility="visible" />
         </LinearLayout>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

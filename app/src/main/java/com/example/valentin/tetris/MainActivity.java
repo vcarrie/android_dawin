@@ -1,11 +1,15 @@
 package com.example.valentin.tetris;
 
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Chronometer;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     public Piece thePiece;
     public int score = 0;
     public Thread thread;
+    public Chronometer simpleChronometer;
+    public TextView scoreView;
 
 
     @Override
@@ -25,12 +31,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
         setContentView(R.layout.activity_main);
 
         baseGrid = findViewById(R.id.BaseGrid);
         thePiece = generatePiece();
         thePiece.appear(theGrid);
         refresh();
+
+        simpleChronometer = (Chronometer) findViewById(R.id.Chrono);
+        simpleChronometer.setFormat("Time Playing - %s");
+        simpleChronometer.setBase(SystemClock.elapsedRealtime());
+
+
+        scoreView = findViewById(R.id.Score);
+        scoreView.setText("Score : " + score);
 
         thread = new Thread(new Runnable() {
 
@@ -43,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
                         {
                             @Override
                             public void run() {
-                                if (game){
+                                if (game) {
+
                                     thePiece.down(theGrid); // this action have to be in UI thread
 
                                     if (!thePiece.isMove() && game) {
@@ -54,9 +71,7 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     }
                                     refresh();
-                                }
-
-                                else {
+                                } else {
                                     Intent intent = new Intent(MainActivity.this, EndGameActivity.class);
                                     intent.putExtra("score", score);
                                     startActivity(intent);
@@ -78,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         thread.start();
+        simpleChronometer.start();
     }
 
     @Override
@@ -132,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
     public Piece generatePiece() {
 
         Random rand = new Random();
-
 
         int x = rand.nextInt(5) + 3;
 
@@ -204,6 +219,7 @@ public class MainActivity extends AppCompatActivity {
             if (complete) {
                 resetLine(i);
                 score++;
+                scoreView.setText("Score : " + score);
             }
             complete = true;
         }
@@ -220,7 +236,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
 
 
 }

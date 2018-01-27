@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Tetris</string>
+    <string name="by_valentin_carrie_th_o_frison"><![CDATA[By Valentin Carrie & Théo Frison]]></string>
+    <string name="jouer">JOUER !</string>
 </resources>
