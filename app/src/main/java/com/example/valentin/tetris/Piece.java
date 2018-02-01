@@ -116,12 +116,16 @@ public class Piece implements Move, movePossible {
                 }
             }
 
+
+
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
-                    newMatrix[j][i] = matrix[i][j];
+                    newMatrix[width-1-j][i] = matrix[i][j];
                 }
 
             }
+
+
             matrix = newMatrix;
 
             int theHeight = height;
@@ -316,19 +320,40 @@ public class Piece implements Move, movePossible {
     }
 
     @Override
-    public boolean rotatePossible(int[][] theGrid, int[][] matrix) {
+    public boolean rotatePossible(int[][] theGrid, int[][] compareMatrix) {
+
         boolean possible = true;
+        int[][] canvas = new int[20][10];
 
-        if (pos_i + matrix.length > theGrid.length) {
-            Log.d("rotatePossible1", "Mouvement impossible");
-            possible = false;
+        for (int i = 0; i < canvas.length; i++) {
+            for (int j = 0; j < canvas[0].length; j++) {
+                canvas[i][j] = theGrid[i][j];
+            }
         }
 
-        if (pos_j + matrix[0].length > theGrid[0].length) {
-            Log.d("rotatePossible2", "Mouvement impossible");
-            possible = false;
-        }
 
+        if (pos_j + height <= theGrid[0].length && pos_i + width <= theGrid.length) {
+
+            for (int i = pos_i; i < width + pos_i; i++) {
+                for (int j = pos_j; j < height + pos_j; j++) {
+                    if (matrix[j - pos_j][i - pos_i] == 1)
+                        canvas[i][j] = 0;
+                }
+            }
+
+            for (int i = 0; i < width; i++) {
+                for (int j = 0; j < height; j++) {
+                    if (canvas[i + pos_i][j + pos_j] != 0 && compareMatrix[i][j] != 0 ) {
+                        possible = false;
+                        Log.d("RightPossible", "Mouvement impossible collision");
+                    }
+                }
+            }
+        } else {
+            possible = false;
+            Log.d("RightPossible", "Mouvement impossible sortie de tableau");
+
+        }
         return possible;
     }
 
